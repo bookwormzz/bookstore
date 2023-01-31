@@ -1,6 +1,6 @@
 # Basic Features
 
-Hello its Aidan!
+Hello its Aidan! and Michelle!
 
 - A user should be able to see products
 - A logged in user should be able to
@@ -17,6 +17,7 @@ Hello its Aidan!
 - An administrator should be able to add a new product
 
 # Bonus Features
+
 - A user should be able to search for products
 - A user should be able to create a wish list
 - A user should be able to checkout using stripe
@@ -24,5 +25,3 @@ Hello its Aidan!
 - A user should be able to upload an avatar to their profile
 - An administrator should be able to add a coupon code
 - A user should be able to use a coupon code
-
-
