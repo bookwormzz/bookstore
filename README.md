@@ -1,7 +1,5 @@
 # Basic Features
 
-Hello its Aidan! and Michelle!
-
 - A user should be able to see products
 - A logged in user should be able to
   - see the items in their cart
