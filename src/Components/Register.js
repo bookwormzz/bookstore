@@ -1,30 +1,27 @@
 import React, { useState } from "react";
-import { attemptLogin } from "../store";
 import { useDispatch } from "react-redux";
-import { Register } from "./Register";
+import { attemptRegister } from "../store";
 
-const Login = () => {
+export const Register = () => {
   const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
 
-  const [hasRender, setRender] = useState(false);
-  const onShow = React.useCallback(() => setRender(true), []);
-
   const onChange = (ev) => {
     setCredentials({ ...credentials, [ev.target.name]: ev.target.value });
   };
 
-  const login = (ev) => {
+  const register = (ev) => {
     ev.preventDefault();
-    dispatch(attemptLogin(credentials));
+    dispatch(attemptRegister(credentials));
   };
+
   return (
     <div>
-      <h2>Login</h2>
-      <form onSubmit={login}>
+      <h2>Register</h2>
+      <form onSubmit={register}>
         <input
           placeholder='username'
           value={credentials.username}
@@ -37,14 +34,9 @@ const Login = () => {
           value={credentials.password}
           onChange={onChange}
         />
-        <button>Login</button>
+        <button>Register </button>
       </form>
-      <button onClick={onShow}>
-        You don't have an account? Register here!
-      </button>
-      {hasRender && <Register />}
+      <button>You have an account? Login here!</button>
     </div>
   );
 };
-
-export default Login;
