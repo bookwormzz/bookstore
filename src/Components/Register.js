@@ -36,7 +36,6 @@ export const Register = () => {
         />
         <button>Register </button>
       </form>
-      <button>You have an account? Login here!</button>
     </div>
   );
 };
