@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store';
+import ProductList from './ProductList';
 
 const Home = ()=> {
   const { auth } = useSelector(state => state);
@@ -11,6 +12,7 @@ const Home = ()=> {
       <div>
         Welcome { auth.username }!!
         <button onClick={()=> dispatch(logout())}>Logout</button>
+        <ProductList />
       </div>
     </div>
   );
