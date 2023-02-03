@@ -14,10 +14,10 @@ const syncAndSeed = async()=> {
   const [moe, lucy, larry, foo, bar, bazz, ethyl] = await Promise.all([
     User.create({ username: 'moe', password: '123' }),
     User.create({ username: 'lucy', password: '123' }),
-    User.create({ username: 'larry', password: '123' }),
-    Product.create({ name: 'foo' }),
-    Product.create({ name: 'bar' }),
-    Product.create({ name: 'bazz' }),
+    User.create({ username: 'larry', password: '123'}),
+    Product.create({ name: 'foo', review: 'Great product'}),
+    Product.create({ name: 'bar', review: 'Great product' }),
+    Product.create({ name: 'bazz', review: 'Great product' }),
     User.create({ username: 'ethyl', password: '123' }),
   ]);
 
