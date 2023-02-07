@@ -23,7 +23,7 @@ const Cart = () => {
     <div>
       <h1>Cart</h1>
       <ul>
-        {cart.isCart === true ? (
+        {cart.isCart ? (
           cart.lineItems.map((lineItem) => (
             <li key={lineItem.id}>
               {lineItem.product.name}
