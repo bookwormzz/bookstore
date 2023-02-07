@@ -24,6 +24,18 @@ const syncAndSeed = async () => {
     User.create({ username: "ethyl", password: "123", userType: "admin" }),
   ]);
 
+  // create submitted orders
+  const [order1, order2] = await Promise.all([
+    Order.create({ isCart: false, userId: ethyl.id }),
+    Order.create({ isCart: false, userId: ethyl.id }),
+  ]);
+
+  const [line1, line2, line3] = await Promise.all([
+    LineItem.create({ quantity: 1, productId: foo.id, orderId: order1.id }),
+    LineItem.create({ quantity: 5, productId: bar.id, orderId: order1.id }),
+    LineItem.create({ quantity: 3, productId: bazz.id, orderId: order2.id }),
+  ]);
+
   const cart = await ethyl.getCart();
   await ethyl.addToCart({ product: bazz, quantity: 3});
   await ethyl.addToCart({ product: foo, quantity: 2});

@@ -4,9 +4,10 @@ const { User } = require("../db");
 
 module.exports = app;
 
-app.get("/", async (req, res, next) => {
+app.post("/", async (req, res, next) => {
   try {
-    
+    const newUser = await User.create(req.body);
+    res.send(newUser);
   } catch (ex) {
     console.log("Error adding a new user");
     next(ex);
