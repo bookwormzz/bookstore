@@ -1,5 +1,6 @@
 const conn = require('./conn');
 const { STRING, UUID, UUIDV4 } = conn.Sequelize;
+const Review = require('./Review')
 
 const Product = conn.define('product', {
   id: {
@@ -23,4 +24,11 @@ const Product = conn.define('product', {
   },
 });
 
+Product.addReview = (product, review) => {
+  console.log(product)
+  Review.create({review: review, productId: product})
+}
+
 module.exports = Product;
+
+

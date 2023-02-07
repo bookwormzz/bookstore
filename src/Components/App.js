@@ -5,6 +5,7 @@ import Cart from './Cart';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginWithToken, fetchCart } from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
+import IndividualProduct from './IndividualProduct';
 
 const App = ()=> {
   const { auth } = useSelector(state => state);
@@ -22,9 +23,6 @@ const App = ()=> {
     <div>
       <h1>Acme Shopping</h1>
       {
-        auth.id ? <Home /> : <Login />
-      }
-      {
         !!auth.id  && (
           <div>
             <nav>
@@ -32,10 +30,15 @@ const App = ()=> {
               <Link to='/cart'>Cart</Link>
             </nav>
             <Routes>
-              <Route path='/cart' element={ <Cart /> } />
+              <Route exact path='/cart' element={ <Cart /> } />
+              <Route exact path='/product/:id' element = {<IndividualProduct/>} />
+              <Route exact path='/' element = {<Home/>}/>
             </Routes>
           </div>
         )
+      }
+       {
+        auth.id ? null : <Login />
       }
     </div>
   );
