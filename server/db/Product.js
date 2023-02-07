@@ -24,11 +24,6 @@ const Product = conn.define('product', {
   },
 });
 
-Product.addReview = (product, review) => {
-  console.log(product)
-  Review.create({review: review, productId: product})
-}
-
 module.exports = Product;
 
 
