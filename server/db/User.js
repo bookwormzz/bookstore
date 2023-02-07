@@ -25,6 +25,13 @@ const User = conn.define("user", {
       notEmpty: true,
     },
   },
+  userType: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
 });
 
 User.prototype.createOrder = async function () {

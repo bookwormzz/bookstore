@@ -1,12 +1,28 @@
 const express = require('express');
 const app = express.Router();
-const {Product } = require('../db');
+const { Product } = require('../db');
+const Review = require('../db/Review');
 
 module.exports = app;
+// 'localhost:3000/api/products'
 
 app.get('/', async(req, res, next)=> {
     try {
-      const product = await Product.findAll();
+      const product = await Product.findAll({
+        include: Review
+      });
+      res.send(product);
+    }
+    catch(ex){
+      next(ex);
+    }
+  });
+
+  app.get('/:id', async(req, res, next)=> {
+    try {
+      const product = await Product.findByPk(req.params.id, {
+        include: Review
+      });
       res.send(product);
     }
     catch(ex){
@@ -41,9 +57,3 @@ app.put('/:id', async (req, res, next) => {
       next(error);
     }
   });
-
-
-  
-
-
-//go into db/index.js where sync and seed is
