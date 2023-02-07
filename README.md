@@ -1,7 +1,5 @@
 # Basic Features
 
-Hello its Aidan! and Michelle!
-
 - A user should be able to see products
 - A logged in user should be able to
   - see the items in their cart
@@ -25,3 +23,8 @@ Hello its Aidan! and Michelle!
 - A user should be able to upload an avatar to their profile
 - An administrator should be able to add a coupon code
 - A user should be able to use a coupon code
+
+# Design Wireframe
+
+![Wireframe](Wireframe.png)
+[Excalidraw Reference](https://excalidraw.com/#room=f9a4d1f3b3eedae37485,fMAg9Q5MQjcqxRf6tUwELw)
