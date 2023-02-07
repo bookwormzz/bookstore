@@ -8,13 +8,14 @@ const Order = (props) => {
       <h4>Order #: {id}</h4>
       <h4>Order Date: {orderDate}</h4>
       <div>
-        {lineItems.map((lineItem) => (
-          <ul>
+        {" "}
+        <ul>
+          {lineItems.map((lineItem) => (
             <li key={lineItem.id}>
               Product: {lineItem.product.name} [Qty: {lineItem.quantity}]
             </li>
-          </ul>
-        ))}
+          ))}{" "}
+        </ul>
       </div>
     </div>
   );
