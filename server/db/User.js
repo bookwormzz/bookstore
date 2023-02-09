@@ -38,9 +38,7 @@ const User = conn.define("user", {
   userType: {
     type: STRING,
     allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    defaultValue: "customer",
   },
 });
 
