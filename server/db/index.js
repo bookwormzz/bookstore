@@ -3,19 +3,18 @@ const User = require("./User");
 const Product = require("./Product");
 const Order = require("./Order");
 const LineItem = require("./LineItem");
-const Review = require('./Review')
+const Review = require("./Review");
 
 Order.belongsTo(User);
 LineItem.belongsTo(Order);
 Order.hasMany(LineItem);
 LineItem.belongsTo(Product);
 Review.belongsTo(Product);
-Product.hasMany(Review)
+Product.hasMany(Review);
 
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
   const [moe, lucy, larry, foo, bar, bazz, ethyl] = await Promise.all([
-
     User.create({
       username: "moe",
       password: "123",
@@ -41,9 +40,6 @@ const syncAndSeed = async () => {
         "https://www.discoverwalks.com/blog/wp-content/uploads/2021/10/mohamed_salah_2018.jpg",
     }),
 
-    User.create({ username: "moe", password: "123", userType: "customer" }),
-    User.create({ username: "lucy", password: "123", userType: "customer" }),
-    User.create({ username: "larry", password: "123", userType: "customer" }),
     Product.create({ name: "foo", review: "Great product" }),
     Product.create({ name: "bar", review: "Great product" }),
     Product.create({ name: "bazz", review: "Great product" }),
@@ -63,21 +59,21 @@ const syncAndSeed = async () => {
   ]);
 
   const cart = await ethyl.getCart();
-  await ethyl.addToCart({ product: bazz, quantity: 3});
-  await ethyl.addToCart({ product: foo, quantity: 2});
-  console.log(foo.dataValues.id)
+  await ethyl.addToCart({ product: bazz, quantity: 3 });
+  await ethyl.addToCart({ product: foo, quantity: 2 });
+  console.log(foo.dataValues.id);
   await Review.create({
     review: "looks great!",
-    productId: foo.dataValues.id
-  })
+    productId: foo.dataValues.id,
+  });
   await Review.create({
     review: "looks amazinnggggg!",
-    productId: bar.dataValues.id
-  })
+    productId: bar.dataValues.id,
+  });
   await Review.create({
     review: "looks amaeessziiing!",
-    productId: bazz.dataValues.id
-  })
+    productId: bazz.dataValues.id,
+  });
   return {
     users: {
       moe,
