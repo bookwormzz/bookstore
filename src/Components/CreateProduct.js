@@ -2,12 +2,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const CreateProduct = () => {
-  const [formValue, setFormValue] = useState({
-    name: "",
-    author: "",
-    imageUrl: "",
-  });
-
   const {
     register,
     handleSubmit,
