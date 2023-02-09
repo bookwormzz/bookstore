@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const CreateProduct = () => {
   const [formValue, setFormValue] = useState({
@@ -7,31 +8,27 @@ const CreateProduct = () => {
     imageUrl: "",
   });
 
-  const handleSubmit = (event) => {
-    console.log("submit");
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormValue((prevState) => {
-      return {
-        ...prevState,
-        [name]: value,
-      };
-    });
-    console.log(formValue);
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+    //    dispatch(updateUser(data));
+    console.log("submit");
   };
 
   return (
     <div>
       <h2>Edit Product</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Book Name</label>
-        <input name="name" value={formValue.name} onChange={handleChange} />
-        <label>Author</label>
-        <input name="author" value={formValue.author} onChange={handleChange} />
-        <label>Image</label>
-        <button>Submit</button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="name">Book Name</label>
+        <input name="name" {...register("name")} />
+        <label htmlFor="author">Author</label>
+        <input name="author" {...register("author")} />
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
