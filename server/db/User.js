@@ -1,5 +1,5 @@
 const conn = require("./conn");
-const { STRING, UUID, UUIDV4 } = conn.Sequelize;
+const { STRING, TEXT, UUID, UUIDV4 } = conn.Sequelize;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const JWT = process.env.JWT;
@@ -24,6 +24,16 @@ const User = conn.define("user", {
     validate: {
       notEmpty: true,
     },
+  },
+  email: {
+    type: STRING,
+    isEmail: true,
+  },
+  address: {
+    type: TEXT,
+  },
+  imageUrl: {
+    type: STRING,
   },
 });
 
@@ -113,6 +123,7 @@ User.addHook("beforeSave", async (user) => {
 
 User.findByToken = async function (token) {
   try {
+    console.log("JWT", jwt.verify(token, process.env.JWT));
     const { id } = jwt.verify(token, process.env.JWT);
     const user = await this.findByPk(id);
     if (user) {
