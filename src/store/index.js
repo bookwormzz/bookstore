@@ -5,12 +5,14 @@ import auth from "./auth";
 import cart from "./cart";
 import products from "./product";
 import orders from "./orders";
+import user from "./user";
 
 const reducer = combineReducers({
   auth,
   cart,
   orders,
   products,
+  user,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
