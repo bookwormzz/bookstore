@@ -25,6 +25,7 @@ const User = conn.define("user", {
       notEmpty: true,
     },
   },
+
   email: {
     type: STRING,
     isEmail: true,
@@ -34,6 +35,12 @@ const User = conn.define("user", {
   },
   imageUrl: {
     type: STRING,
+  userType: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
 });
 

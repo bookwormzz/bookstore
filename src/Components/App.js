@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
-import Home from "./Home";
-import Login from "./Login";
-import Cart from "./Cart";
-import OrderHistory from "./OrderHistory";
-import { useSelector, useDispatch } from "react-redux";
-import { loginWithToken, fetchCart } from "../store";
-import { Link, Routes, Route } from "react-router-dom";
+import React, { useEffect } from 'react';
+import Home from './Home';
+import Login from './Login';
+import Cart from './Cart';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginWithToken, fetchCart } from '../store';
+import { Link, Routes, Route } from 'react-router-dom';
+import IndividualProduct from './IndividualProduct';
+import OrderHistory from './OrderHistory'
 
 const App = () => {
   const { auth } = useSelector((state) => state);
@@ -22,20 +23,26 @@ const App = () => {
   return (
     <div>
       <h1>Acme Shopping</h1>
-      {auth.id ? <Home /> : <Login />}
-      {!!auth.id && (
-        <div>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/cart">Cart</Link>
-            <Link to="/orders">Order History</Link>
-          </nav>
-          <Routes>
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/orders" element={<OrderHistory />} />
-          </Routes>
-        </div>
-      )}
+      {
+        !!auth.id  && (
+          <div>
+            <nav>
+              <Link to='/'>Home</Link>
+              <Link to='/cart'>Cart</Link>
+              <Link to="/orders">Order History</Link>
+            </nav>
+            <Routes>
+              <Route path="/orders" element={<OrderHistory />} />
+              <Route exact path='/cart' element={ <Cart /> } />
+              <Route exact path='/product/:id' element = {<IndividualProduct/>} />
+              <Route exact path='/' element = {<Home/>}/>
+            </Routes>
+          </div>
+        )
+      }
+       {
+        auth.id ? null : <Login />
+      }
     </div>
   );
 };
