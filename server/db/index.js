@@ -3,19 +3,18 @@ const User = require("./User");
 const Product = require("./Product");
 const Order = require("./Order");
 const LineItem = require("./LineItem");
-const Review = require('./Review')
+const Review = require("./Review");
 
 Order.belongsTo(User);
 LineItem.belongsTo(Order);
 Order.hasMany(LineItem);
 LineItem.belongsTo(Product);
 Review.belongsTo(Product);
-Product.hasMany(Review)
+Product.hasMany(Review);
 
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
   const [moe, lucy, larry, foo, bar, bazz, ethyl] = await Promise.all([
-
     User.create({
       username: "moe",
       password: "123",
@@ -23,6 +22,7 @@ const syncAndSeed = async () => {
       email: "moe@gmail.com",
       imageUrl:
         "https://imageio.forbes.com/specials-images/imageserve/5f64397931669e167fc57eaf/960x0.jpg?format=jpg&width=960",
+      userType: "customer",
     }),
     User.create({
       username: "lucy",
@@ -31,6 +31,7 @@ const syncAndSeed = async () => {
       email: "lucy@gmail.com",
       imageUrl:
         "https://cdn2.psychologytoday.com/assets/styles/manual_crop_1_91_1_1528x800/public/field_blog_entry_images/2017-09/shutterstock_243101992.jpg?itok=nKwkA392",
+      userType: "customer",
     }),
     User.create({
       username: "larry",
@@ -39,11 +40,12 @@ const syncAndSeed = async () => {
       email: "larry@gmail.com",
       imageUrl:
         "https://www.discoverwalks.com/blog/wp-content/uploads/2021/10/mohamed_salah_2018.jpg",
+      userType: "customer",
     }),
 
-    User.create({ username: "moe", password: "123", userType: "customer" }),
-    User.create({ username: "lucy", password: "123", userType: "customer" }),
-    User.create({ username: "larry", password: "123", userType: "customer" }),
+    // User.create({ username: "moe", password: "123", userType: "customer" }),
+    // User.create({ username: "lucy", password: "123", userType: "customer" }),
+    // User.create({ username: "larry", password: "123", userType: "customer" }),
     Product.create({ name: "foo", review: "Great product" }),
     Product.create({ name: "bar", review: "Great product" }),
     Product.create({ name: "bazz", review: "Great product" }),
@@ -63,21 +65,21 @@ const syncAndSeed = async () => {
   ]);
 
   const cart = await ethyl.getCart();
-  await ethyl.addToCart({ product: bazz, quantity: 3});
-  await ethyl.addToCart({ product: foo, quantity: 2});
-  console.log(foo.dataValues.id)
+  await ethyl.addToCart({ product: bazz, quantity: 3 });
+  await ethyl.addToCart({ product: foo, quantity: 2 });
+  console.log(foo.dataValues.id);
   await Review.create({
     review: "looks great!",
-    productId: foo.dataValues.id
-  })
+    productId: foo.dataValues.id,
+  });
   await Review.create({
     review: "looks amazinnggggg!",
-    productId: bar.dataValues.id
-  })
+    productId: bar.dataValues.id,
+  });
   await Review.create({
     review: "looks amaeessziiing!",
-    productId: bazz.dataValues.id
-  })
+    productId: bazz.dataValues.id,
+  });
   return {
     users: {
       moe,
