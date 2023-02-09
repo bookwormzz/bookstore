@@ -27,15 +27,11 @@ const getUser = (id) => {
 const updateUser = (user) => {
   return async (dispatch) => {
     const token = window.localStorage.getItem("token");
-    const newUser = await axios.put(
-      "/api/users/",
-      {
-        headers: {
-          authorization: token,
-        },
+    const newUser = await axios.put("/api/users/", user, {
+      headers: {
+        authorization: token,
       },
-      user
-    );
+    });
     dispatch({ type: "SET_USERS", orders: newUser.data });
   };
 };
