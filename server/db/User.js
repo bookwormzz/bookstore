@@ -35,10 +35,11 @@ const User = conn.define("user", {
   },
   imageUrl: {
     type: STRING,
-  userType: {
-    type: STRING,
-    allowNull: false,
-    defaultValue: "customer",
+    userType: {
+      type: STRING,
+      allowNull: false,
+      defaultValue: "customer",
+    },
   },
 });
 
