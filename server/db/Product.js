@@ -21,11 +21,9 @@ const Product = conn.define("product", {
   },
   imageUrl: {
     type: STRING,
-    allowNull: false,
   },
   review: {
     type: STRING,
-    allowNull: false,
     validate: {
       notEmpty: true,
     },
