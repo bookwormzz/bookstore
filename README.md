@@ -17,7 +17,6 @@
 # Bonus Features
 
 - [x] A user should be able to search for products
-
 - [ ] A user should be able to create a wish list
 - [ ] A user should be able to checkout using stripe
   - [x] A user should be able to add a shipping address
