@@ -26,14 +26,14 @@ const Login = () => {
       <h2>Login</h2>
       <form onSubmit={login}>
         <input
-          placeholder='username'
+          placeholder="username"
           value={credentials.username}
-          name='username'
+          name="username"
           onChange={onChange}
         />
         <input
-          placeholder='password'
-          name='password'
+          placeholder="password"
+          name="password"
           value={credentials.password}
           onChange={onChange}
         />
