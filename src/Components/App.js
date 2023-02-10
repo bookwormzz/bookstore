@@ -5,7 +5,7 @@ import Cart from './Cart';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginWithToken, fetchCart } from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
-import IndividualProduct from './IndividualProduct';
+import IndividualProduct from './Products/IndividualProduct';
 import OrderHistory from './OrderHistory'
 
 const App = () => {

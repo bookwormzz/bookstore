@@ -1,6 +1,6 @@
-import { fetchProducts } from "../store/product";
+import { fetchProducts } from "../../store/product";
 import { useSelector, useDispatch } from "react-redux";
-import store from "../store";
+import store from "../../store";
 import React from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -28,6 +28,8 @@ const ProductList = () => {
             })
           : "loading"}
       </ul>
+
+      
     </div>
   );
 };

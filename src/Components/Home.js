@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store';
-import ProductList from './ProductList';
+import ProductList from './Products/ProductList';
 
 const Home = ()=> {
   const { auth } = useSelector(state => state);

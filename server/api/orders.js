@@ -33,6 +33,7 @@ app.get("/cart", async (req, res, next) => {
 
 app.post("/cart", async (req, res, next) => {
   try {
+    console.log("req body", req.body)
     const user = await User.findByToken(req.headers.authorization);
     res.send(await user.addToCart(req.body));
   } catch (ex) {
