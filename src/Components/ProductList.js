@@ -11,17 +11,16 @@ const ProductList = () => {
   const [show, setShow] = useState(false);
   const [userType, setUserType] = useState(auth.userType);
 
-  // const [searchTerm, setSearchTerm] = React.useState("");
-  // const handleChange = (event) => {
-  //   setSearchTerm(event.target.value);
-  // };
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
-  // const results = !searchTerm
-  //   ? products
-  //   : products.filter((product) =>
-  //       product.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-  //     );
-  // console.log("RESULTS", results);
+  const results = !searchTerm
+    ? products.products
+    : products.products.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+      );
 
   const dispatch = useDispatch();
 
@@ -52,19 +51,18 @@ const ProductList = () => {
       {userType === "admin" && (
         <button onClick={showProductEdit}>Add Product</button>
       )}
-      {/* <div>
+      <div>
         <input
-          type='text'
-          placeholder='Search'
+          type="text"
+          placeholder="Search"
           value={searchTerm}
           onChange={handleChange}
         />
-        <ul>{results && results.map((item) => <li>{item}</li>)}</ul>
-      </div> */}
+      </div>
       <div id="product-list-container">
         <div id="product-grid-row">
-          {products.products !== []
-            ? products.products.map((product) => {
+          {results
+            ? results.map((product) => {
                 return (
                   <div id="product-item" key={product.id}>
                     <Link to={`/product/${product.id}`}>
