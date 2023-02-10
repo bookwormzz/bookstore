@@ -15,7 +15,6 @@ app.post("/", async (req, res, next) => {
 app.put("/", async (req, res, next) => {
   try {
     const user = await User.findByToken(req.headers.authorization);
-    console.log("USER FROM API", user);
     res.send(await user.update(req.body));
   } catch (error) {
     console.log("Error updating user from api");
@@ -56,5 +55,3 @@ app.get("/", async (req, res, next) => {
 });
 
 module.exports = app;
-
-

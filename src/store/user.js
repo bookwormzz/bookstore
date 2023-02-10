@@ -1,5 +1,6 @@
 import axios from "axios";
 const users = (state = [], action) => {
+  console.log("ACTION", action);
   if (action.type === "SET_USERS") {
     return action.users;
   } else if (action.type === "GET_USER") {
@@ -32,7 +33,8 @@ const updateUser = (user) => {
         authorization: token,
       },
     });
-    dispatch({ type: "SET_USERS", orders: newUser.data });
+    console.log("USER FROM THUNK", newUser.data);
+    dispatch({ type: "SET_USERS", users: newUser.data });
   };
 };
 

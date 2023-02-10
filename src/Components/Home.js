@@ -8,6 +8,7 @@ const Home = () => {
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const createdDate = new Date(auth.createdAt).toLocaleDateString();
+  const [showProfile, setShowProfile] = useState(false);
 
   return (
     <div>
@@ -17,14 +18,15 @@ const Home = () => {
         <img src={auth.imageUrl} height='200' width='200' />
         <h2>Details:</h2>
         <p>Member since {createdDate}</p>
-        <UpdateProfile />
-        {/* <button
+        {/* <UpdateProfile /> */}
+        {showProfile ? <UpdateProfile /> : <span></span>}
+        <button
           onClick={() => {
             setShowProfile(true);
           }}
         >
-          showProfile
-        </button> */}
+          Update Profile
+        </button>
         <button onClick={() => dispatch(logout())}>Logout</button>
         <ProductList />
       </div>
