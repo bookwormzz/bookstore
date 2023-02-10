@@ -8,6 +8,18 @@ import { Link } from "react-router-dom";
 const ProductList = () => {
   const { products } = useSelector((state) => state);
 
+  // const [searchTerm, setSearchTerm] = React.useState("");
+  // const handleChange = (event) => {
+  //   setSearchTerm(event.target.value);
+  // };
+
+  // const results = !searchTerm
+  //   ? products
+  //   : products.filter((product) =>
+  //       product.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+  //     );
+  // console.log("RESULTS", results);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProducts());
@@ -16,7 +28,15 @@ const ProductList = () => {
   return (
     <div>
       <h1> Products List </h1>
-
+      {/* <div>
+        <input
+          type='text'
+          placeholder='Search'
+          value={searchTerm}
+          onChange={handleChange}
+        />
+        <ul>{results && results.map((item) => <li>{item}</li>)}</ul>
+      </div> */}
       <ul>
         {products.products !== []
           ? products.products.map((product) => {
