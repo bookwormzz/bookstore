@@ -8,17 +8,17 @@ import { Link } from "react-router-dom";
 const ProductList = () => {
   const { products } = useSelector((state) => state);
 
-  // const [searchTerm, setSearchTerm] = React.useState("");
-  // const handleChange = (event) => {
-  //   setSearchTerm(event.target.value);
-  // };
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
-  // const results = !searchTerm
-  //   ? products
-  //   : products.filter((product) =>
-  //       product.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-  //     );
-  // console.log("RESULTS", results);
+  const results = !searchTerm
+    ? products.products
+    : products.products.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+      );
+  console.log("RESULTS", results);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,26 +28,25 @@ const ProductList = () => {
   return (
     <div>
       <h1> Products List </h1>
-      {/* <div>
+      <div>
         <input
           type='text'
           placeholder='Search'
           value={searchTerm}
           onChange={handleChange}
         />
-        <ul>{results && results.map((item) => <li>{item}</li>)}</ul>
-      </div> */}
-      <ul>
-        {products.products !== []
-          ? products.products.map((product) => {
-              return (
-                <li key={product.id}>
-                  <Link to={`/product/${product.id}`}> {product.name}</Link>
-                </li>
-              );
-            })
-          : "loading"}
-      </ul>
+        <ul>
+          {results &&
+            results.map((item) => (
+              <li>
+                <Link to={`/product/${item.id}`} key={item.id}>
+                  {" "}
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 };
