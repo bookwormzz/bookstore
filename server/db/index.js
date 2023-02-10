@@ -23,6 +23,7 @@ const syncAndSeed = async () => {
         email: "moe@gmail.com",
         imageUrl:
           "https://imageio.forbes.com/specials-images/imageserve/5f64397931669e167fc57eaf/960x0.jpg?format=jpg&width=960",
+        userType: "customer",
       }),
       User.create({
         username: "lucy",
@@ -31,6 +32,7 @@ const syncAndSeed = async () => {
         email: "lucy@gmail.com",
         imageUrl:
           "https://cdn2.psychologytoday.com/assets/styles/manual_crop_1_91_1_1528x800/public/field_blog_entry_images/2017-09/shutterstock_243101992.jpg?itok=nKwkA392",
+        userType: "customer",
       }),
       User.create({
         username: "larry",
@@ -39,7 +41,15 @@ const syncAndSeed = async () => {
         email: "larry@gmail.com",
         imageUrl:
           "https://www.discoverwalks.com/blog/wp-content/uploads/2021/10/mohamed_salah_2018.jpg",
+        userType: "customer",
       }),
+
+      // User.create({ username: "moe", password: "123", userType: "customer" }),
+      // User.create({ username: "lucy", password: "123", userType: "customer" }),
+      // User.create({ username: "larry", password: "123", userType: "customer" }),
+      // Product.create({ name: "foo", review: "Great product" }),
+      // Product.create({ name: "bar", review: "Great product" }),
+      // Product.create({ name: "bazz", review: "Great product" }),
       Product.create({
         name: "To Kill a Mockingbird",
         author: "Harper Lee",
