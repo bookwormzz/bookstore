@@ -1,5 +1,5 @@
 const conn = require("./conn");
-const { STRING, TEXT, UUID, UUIDV4 } = conn.Sequelize;
+const { STRING, TEXT, UUID, UUIDV4, ENUM } = conn.Sequelize;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const JWT = process.env.JWT;
@@ -25,7 +25,6 @@ const User = conn.define("user", {
       notEmpty: true,
     },
   },
-
   email: {
     type: STRING,
     isEmail: true,
@@ -35,11 +34,10 @@ const User = conn.define("user", {
   },
   imageUrl: {
     type: STRING,
-    userType: {
-      type: STRING,
-      allowNull: false,
-      defaultValue: "customer",
-    },
+  },
+  userType: {
+    type: ENUM("customer", "admin"),
+    defaultValue: "customer",
   },
 });
 

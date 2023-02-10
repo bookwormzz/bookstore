@@ -1,12 +1,15 @@
 import { fetchProducts } from "../store/product";
 import { useSelector, useDispatch } from "react-redux";
-import store from "../store";
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { addProduct } from "../store";
 
 const ProductList = () => {
-  const { products } = useSelector((state) => state);
+  const { products, auth } = useSelector((state) => state);
+  const [show, setShow] = useState(false);
+  const [userType, setUserType] = useState(auth.userType);
 
   const [searchTerm, setSearchTerm] = React.useState("");
   const handleChange = (event) => {
@@ -18,34 +21,75 @@ const ProductList = () => {
     : products.products.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
       );
-  console.log("RESULTS", results);
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
 
+  const showProductEdit = () => {
+    setShow(true);
+  };
+
+  // Add Product
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+    dispatch(addProduct(data));
+    setShow(false);
+  };
+
   return (
     <div>
-      <h1> Products List </h1>
+      <h1> Book List </h1>
+      {userType === "admin" && (
+        <button onClick={showProductEdit}>Add Product</button>
+      )}
       <div>
         <input
-          type='text'
-          placeholder='Search'
+          type="text"
+          placeholder="Search"
           value={searchTerm}
           onChange={handleChange}
         />
-        <ul>
-          {results &&
-            results.map((item) => (
-              <li>
-                <Link to={`/product/${item.id}`} key={item.id}>
-                  {" "}
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-        </ul>
+      </div>
+      <div id="product-list-container">
+        <div id="product-grid-row">
+          {results
+            ? results.map((product) => {
+                return (
+                  <div id="product-item" key={product.id}>
+                    <Link to={`/product/${product.id}`}>
+                      <img src={product.imageUrl} />
+                    </Link>
+                    <Link to={`/product/${product.id}`}>
+                      <span>{product.name}</span>
+                    </Link>
+                  </div>
+                );
+              })
+            : "loading"}{" "}
+        </div>
+      </div>
+      <div id="add-product">
+        {show && (
+          <div>
+            <h2>Add a New Product</h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <label htmlFor="name">Book Name</label>
+              <input name="name" {...register("name")} />
+              <label htmlFor="author">Author</label>
+              <input name="author" {...register("author")} />
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );
