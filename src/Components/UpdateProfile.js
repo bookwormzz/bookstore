@@ -20,14 +20,7 @@ const UpdateProfile = () => {
       <h1>Update Profile</h1>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor='username'>Name: </label>
-          <input
-            type='text'
-            defaultValue={auth.username}
-            name='username'
-            {...register("username")}
-          />
-          <label htmlFor='address'>Address: </label>
+          <label htmlFor='address'>Shipping address: </label>
           <input
             type='text'
             defaultValue={auth.address}
