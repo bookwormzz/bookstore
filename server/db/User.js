@@ -1,5 +1,5 @@
 const conn = require("./conn");
-const { STRING, UUID, UUIDV4 } = conn.Sequelize;
+const { STRING, TEXT, UUID, UUIDV4, ENUM } = conn.Sequelize;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const JWT = process.env.JWT;
@@ -22,10 +22,23 @@ const User = conn.define("user", {
     type: STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
-  }
-});
+      notEmpty: true,
+    },
+  },
+  email: {
+    type: STRING,
+    isEmail: true,
+  },
+  address: {
+    type: TEXT,
+  },
+  imageUrl: {
+    type: STRING,
+  },
+  userType: {
+    type: ENUM("customer", "admin"),
+    defaultValue: "customer",
+  },});
 
 User.prototype.createOrder = async function () {
   const cart = await this.getCart();

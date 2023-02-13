@@ -41,7 +41,6 @@ export const removeCart = (product, quantityToRemove) => {
 export const addToCart = (body) => {
   return async (dispatch) => {
     try {
-      console.log('in the cart route')
       const token = window.localStorage.getItem("token");
       const response = await axios.post("/api/orders/cart", body, {
         headers: {
