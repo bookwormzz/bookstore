@@ -47,24 +47,24 @@ const ProductList = () => {
 
   return (
     <div>
-      <h1> Book List </h1>
-      {userType === "admin" && (
-        <button onClick={showProductEdit}>Add Product</button>
-      )}
-      <div>
+      <div id='header-column'>
+        <h1> Book List </h1>
+        {userType === "admin" && (
+          <button onClick={showProductEdit}>Add Product</button>
+        )}
         <input
-          type="text"
-          placeholder="Search"
+          type='text'
+          placeholder='Search'
           value={searchTerm}
           onChange={handleChange}
         />
       </div>
-      <div id="product-list-container">
-        <div id="product-grid-row">
+      <div id='product-list-container'>
+        <div id='product-grid-row'>
           {results
             ? results.map((product) => {
                 return (
-                  <div id="product-item" key={product.id}>
+                  <div id='product-item' key={product.id}>
                     <Link to={`/product/${product.id}`}>
                       <img src={product.imageUrl} />
                     </Link>
@@ -77,16 +77,16 @@ const ProductList = () => {
             : "loading"}{" "}
         </div>
       </div>
-      <div id="add-product">
+      <div id='add-product'>
         {show && (
           <div>
             <h2>Add a New Product</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <label htmlFor="name">Book Name</label>
-              <input name="name" {...register("name")} />
-              <label htmlFor="author">Author</label>
-              <input name="author" {...register("author")} />
-              <button type="submit">Submit</button>
+              <label htmlFor='name'>Book Name</label>
+              <input name='name' {...register("name")} />
+              <label htmlFor='author'>Author</label>
+              <input name='author' {...register("author")} />
+              <button type='submit'>Submit</button>
             </form>
           </div>
         )}

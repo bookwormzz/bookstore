@@ -44,12 +44,6 @@ const syncAndSeed = async () => {
         userType: "customer",
       }),
 
-      // User.create({ username: "moe", password: "123", userType: "customer" }),
-      // User.create({ username: "lucy", password: "123", userType: "customer" }),
-      // User.create({ username: "larry", password: "123", userType: "customer" }),
-      // Product.create({ name: "foo", review: "Great product" }),
-      // Product.create({ name: "bar", review: "Great product" }),
-      // Product.create({ name: "bazz", review: "Great product" }),
       Product.create({
         name: "To Kill a Mockingbird",
         author: "Harper Lee",

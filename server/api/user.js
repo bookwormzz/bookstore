@@ -36,7 +36,6 @@ app.get("/updateprofile", async (req, res, next) => {
   try {
     console.log("AUTHARIZATION", req.headers.authorization);
     const user = await User.findByToken(req.headers.authorization);
-    console.log("USER FROM API", user);
     res.send(user);
   } catch (ex) {
     console.log("Error getting a users from api");

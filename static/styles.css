@@ -1,5 +1,28 @@
 body {
   font-family: verdana;
+  color: darkblue;
+}
+
+body::after {
+  content: "";
+  background: url("book3.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+  height: 1200px;
+}
+.homepage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: solid 1px grey;
+  padding-bottom: 10px;
 }
 
 form {
@@ -11,9 +34,41 @@ form > * {
   margin: 1rem;
 }
 
+#header {
+  display: flex;
+  justify-content: space-around;
+  font-family: serif;
+  color: darkblue;
+}
+
+#header-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  font-family: serif;
+  color: darkblue;
+}
+
+#component {
+  display: flex;
+  /* justify-content: space-around; */
+  font-family: serif;
+  color: darkblue;
+  align-items: center;
+  flex-direction: column;
+}
+
 nav {
   display: flex;
   justify-content: space-around;
+  background-color: rgba(12, 74, 87, 0.386);
+  color: darkblue;
+  height: 50px;
+  padding: 10px;
+  font-family: serif;
+  align-items: center;
+  border: solid 2px black;
 }
 
 #orderContainer {
@@ -24,6 +79,10 @@ nav {
 
 img {
   width: 120px;
+  height: 180px;
+}
+#user_pic {
+  width: 200px;
   height: 180px;
 }
 

@@ -22,19 +22,19 @@ const App = () => {
   }, [auth]);
   return (
     <div>
-      <h1>Bookwormzz Bookstore</h1>
+      <h1 id='header'>Bookwormzz Bookstore</h1>
       {!!auth.id && (
         <div>
           <nav>
-            <Link to="/">Home</Link>
-            <Link to="/cart">Cart</Link>
-            <Link to="/orders">Order History</Link>
+            <Link to='/'>Home</Link>
+            <Link to='/cart'>Cart</Link>
+            <Link to='/orders'>Order History</Link>
           </nav>
           <Routes>
-            <Route path="/orders" element={<OrderHistory />} />
-            <Route exact path="/cart" element={<Cart />} />
-            <Route exact path="/product/:id" element={<IndividualProduct />} />
-            <Route exact path="/" element={<Home />} />
+            <Route path='/orders' element={<OrderHistory />} />
+            <Route exact path='/cart' element={<Cart />} />
+            <Route exact path='/product/:id' element={<IndividualProduct />} />
+            <Route exact path='/' element={<Home />} />
           </Routes>
         </div>
       )}

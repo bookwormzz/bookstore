@@ -12,22 +12,28 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Home</h1>
+      <h1 id='header'>Home</h1>
+      <div className='homepage'>
+        <div id='component'>
+          <p border='solid 1px black'>Welcome {auth.username}!!</p>
+          <img id='user_pic' src={auth.imageUrl} />
+        </div>
+        <div id='component'>
+          <h2>Details:</h2>
+          <p>Member since {createdDate}</p>
+          {/* <UpdateProfile /> */}
+          {showProfile ? <UpdateProfile /> : <span></span>}
+          <button
+            onClick={() => {
+              setShowProfile(true);
+            }}
+          >
+            Update Profile
+          </button>
+          <button onClick={() => dispatch(logout())}>Logout</button>
+        </div>
+      </div>
       <div>
-        Welcome {auth.username}!!
-        <img src={auth.imageUrl} height='200' width='200' />
-        <h2>Details:</h2>
-        <p>Member since {createdDate}</p>
-        {/* <UpdateProfile /> */}
-        {showProfile ? <UpdateProfile /> : <span></span>}
-        <button
-          onClick={() => {
-            setShowProfile(true);
-          }}
-        >
-          Update Profile
-        </button>
-        <button onClick={() => dispatch(logout())}>Logout</button>
         <ProductList />
       </div>
     </div>
