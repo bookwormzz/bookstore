@@ -21,7 +21,6 @@ const Home = () => {
         <div id='component'>
           <h2>Details:</h2>
           <p>Member since {createdDate}</p>
-          {/* <UpdateProfile /> */}
           {showProfile ? <UpdateProfile /> : <span></span>}
           <button
             onClick={() => {
