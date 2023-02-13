@@ -19,7 +19,9 @@ const IndividualProduct = (props)=> {
       e.preventDefault();
       console.log("submitted. quantity:", quantity.quantity)
       let orderQuant = parseInt(quantity.quantity)
-      dispatch(addToCart({quantity: orderQuant, productId: params.id,}))
+      dispatch(addToCart({quantity: orderQuant, product: {
+        id: params.id
+      },}))
       setQuantity({quantity: 0})
     }
 

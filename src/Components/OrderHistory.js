@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Order from "./Order";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchOrders } from "../store";
+import { fetchOrders } from "../store/orders";
 
 const OrderHistory = () => {
   const { orders } = useSelector((state) => state);

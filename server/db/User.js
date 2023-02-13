@@ -1,5 +1,5 @@
 const conn = require("./conn");
-const { STRING, TEXT, UUID, UUIDV4, ENUM } = conn.Sequelize;
+const { STRING, UUID, UUIDV4 } = conn.Sequelize;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const JWT = process.env.JWT;
@@ -22,23 +22,9 @@ const User = conn.define("user", {
     type: STRING,
     allowNull: false,
     validate: {
-      notEmpty: true,
-    },
-  },
-  email: {
-    type: STRING,
-    isEmail: true,
-  },
-  address: {
-    type: TEXT,
-  },
-  imageUrl: {
-    type: STRING,
-  },
-  userType: {
-    type: ENUM("customer", "admin"),
-    defaultValue: "customer",
-  },
+      notEmpty: true
+    }
+  }
 });
 
 User.prototype.createOrder = async function () {
@@ -87,10 +73,10 @@ User.prototype.getCart = async function () {
   return cart;
 };
 
-User.prototype.addToCart = async function ({ productId, quantity }) {
+User.prototype.addToCart = async function ({ product, quantity }) {
   const cart = await this.getCart();
   let lineItem = cart.lineItems.find((lineItem) => {
-    return lineItem.productId === productId;
+    return lineItem.productId === product.id;
   });
   if (lineItem) {
     lineItem.quantity += quantity;
@@ -98,7 +84,7 @@ User.prototype.addToCart = async function ({ productId, quantity }) {
   } else {
     await conn.models.lineItem.create({
       orderId: cart.id,
-      productId: productId,
+      productId: product.id,
       quantity,
     });
   }
@@ -127,7 +113,6 @@ User.addHook("beforeSave", async (user) => {
 
 User.findByToken = async function (token) {
   try {
-    console.log("JWT", jwt.verify(token, process.env.JWT));
     const { id } = jwt.verify(token, process.env.JWT);
     const user = await this.findByPk(id);
     if (user) {

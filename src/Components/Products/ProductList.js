@@ -2,11 +2,10 @@ import { fetchProducts } from "../../store/product";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState } from "react";
 import store from "../../store";
-import React from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { addProduct } from "../store";
+import { addProduct } from "../../store";
 
 const ProductList = () => {
   const { products, auth } = useSelector((state) => state);
