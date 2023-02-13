@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store";
-import ProductList from "./ProductList";
+import ProductList from "./Products/ProductList";
 import UpdateProfile from "./UpdateProfile";
 
 const Home = () => {
