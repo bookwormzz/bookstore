@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { attemptRegister } from "../store";
 
 export const Register = () => {
@@ -9,6 +10,8 @@ export const Register = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const onChange = (ev) => {
     setCredentials({ ...credentials, [ev.target.name]: ev.target.value });
   };
@@ -16,6 +19,7 @@ export const Register = () => {
   const register = (ev) => {
     ev.preventDefault();
     dispatch(attemptRegister(credentials));
+    navigate("/");
   };
 
   return (
@@ -23,14 +27,14 @@ export const Register = () => {
       <h2>Register</h2>
       <form onSubmit={register}>
         <input
-          placeholder='username'
+          placeholder="username"
           value={credentials.username}
-          name='username'
+          name="username"
           onChange={onChange}
         />
         <input
-          placeholder='password'
-          name='password'
+          placeholder="password"
+          name="password"
           value={credentials.password}
           onChange={onChange}
         />

@@ -17,7 +17,6 @@ const IndividualProduct = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submitted. quantity:", quantity.quantity);
     let orderQuant = parseInt(quantity.quantity);
     dispatch(
       addToCart({
@@ -41,7 +40,6 @@ const IndividualProduct = (props) => {
 
   const onChange = (ev) => {
     setQuantity({ quantity: ev.target.value });
-    console.log(quantity);
   };
 
   return (

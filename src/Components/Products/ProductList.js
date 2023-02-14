@@ -10,7 +10,6 @@ import ProductCard from "./ProductCard";
 const ProductList = () => {
   const { products, auth } = useSelector((state) => state);
   const [show, setShow] = useState(false);
-  const [userType, setUserType] = useState(auth.userType);
 
   const [searchTerm, setSearchTerm] = React.useState("");
   const handleChange = (event) => {
@@ -48,7 +47,8 @@ const ProductList = () => {
 
   return (
     <div>
-      {userType === "admin" && (
+      <h2>Book List</h2>
+      {auth.userType === "admin" && (
         <button onClick={showProductEdit}>Add Product</button>
       )}
       <div>

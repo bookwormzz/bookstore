@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchCart, removeCart, submitOrder } from "../store";
 
 const Cart = () => {
+  const { auth } = useSelector((state) => state);
   const { cart } = useSelector((state) => state);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,7 +24,7 @@ const Cart = () => {
     <div>
       <h1>Cart</h1>
       <ul>
-        {cart.isCart ? (
+        {cart.isCart &&
           cart.lineItems.map((lineItem) => (
             <li key={lineItem.id}>
               {lineItem.product.name}
@@ -35,12 +36,15 @@ const Cart = () => {
                 Remove from Cart
               </button>
             </li>
-          ))
-        ) : (
-          <li>No items in cart.</li>
-        )}
+          ))}
       </ul>
-      <button onClick={handleSubmitOrder()}>Submit Order</button>
+      {cart.lineItems.length > 0 ? (
+        <button onClick={handleSubmitOrder()}>Submit Order</button>
+      ) : (
+        <ul>
+          <li>No items in cart</li>
+        </ul>
+      )}
     </div>
   );
 };
