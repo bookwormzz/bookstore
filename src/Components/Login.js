@@ -23,6 +23,7 @@ const Login = () => {
   };
   return (
     <div>
+      <h1>Bookwormzz</h1>
       <h2>Login</h2>
       <form onSubmit={login}>
         <input

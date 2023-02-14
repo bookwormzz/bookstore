@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
-import Home from "./Home";
+import React, { useEffect, useState } from "react";
+import Home from "./Account";
 import Login from "./Login";
 import Cart from "./Cart";
 import { useSelector, useDispatch } from "react-redux";
-import { loginWithToken, fetchCart } from "../store";
+import { loginWithToken, fetchCart, logout } from "../store";
 import { Link, Routes, Route } from "react-router-dom";
-import IndividualProduct from './Products/IndividualProduct'
+import IndividualProduct from "./Products/IndividualProduct";
+import ProductList from "./Products/ProductList";
 import OrderHistory from "./OrderHistory";
+import Account from "./Account";
 
 const App = () => {
   const { auth } = useSelector((state) => state);
+  const [displayLogin, setDisplayLogin] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loginWithToken());
@@ -20,25 +23,42 @@ const App = () => {
       dispatch(fetchCart());
     }
   }, [auth]);
+
+  const changeDisplayLogin = () => {
+    setDisplayLogin(true);
+  };
+
   return (
     <div>
-      <h1>Bookwormzz Bookstore</h1>
-      {!!auth.id && (
+      {
         <div>
+          <div id="header">
+            <h1>Bookwormzz</h1>
+            {auth.id ? (
+              <button onClick={() => dispatch(logout())}>Logout</button>
+            ) : (
+              <button>Login</button>
+            )}
+          </div>
           <nav>
             <Link to="/">Home</Link>
             <Link to="/cart">Cart</Link>
-            <Link to="/orders">Order History</Link>
+            {!!auth.id && (
+              <nav>
+                <Link to="/orders">Order History</Link>
+                <Link to="/account">Account</Link>
+              </nav>
+            )}
           </nav>
           <Routes>
-            <Route path="/orders" element={<OrderHistory />} />
+            {!!auth.id && <Route path="/orders" element={<OrderHistory />} />}
             <Route exact path="/cart" element={<Cart />} />
             <Route exact path="/product/:id" element={<IndividualProduct />} />
-            <Route exact path="/" element={<Home />} />
+            <Route exact path="/" element={<ProductList />} />
+            <Route exact path="/account" element={<Account />} />
           </Routes>
         </div>
-      )}
-      {auth.id ? null : <Login />}
+      }
     </div>
   );
 };

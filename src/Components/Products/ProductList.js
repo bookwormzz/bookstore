@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { addProduct } from "../../store";
+import ProductCard from "./ProductCard";
 
 const ProductList = () => {
   const { products, auth } = useSelector((state) => state);
@@ -47,7 +48,6 @@ const ProductList = () => {
 
   return (
     <div>
-      <h1> Book List </h1>
       {userType === "admin" && (
         <button onClick={showProductEdit}>Add Product</button>
       )}
@@ -63,16 +63,7 @@ const ProductList = () => {
         <div id="product-grid-row">
           {results
             ? results.map((product) => {
-                return (
-                  <div id="product-item" key={product.id}>
-                    <Link to={`/product/${product.id}`}>
-                      <img src={product.imageUrl} />
-                    </Link>
-                    <Link to={`/product/${product.id}`}>
-                      <span>{product.name}</span>
-                    </Link>
-                  </div>
-                );
+                return <ProductCard key={product.id} product={product} />;
               })
             : "loading"}{" "}
         </div>
