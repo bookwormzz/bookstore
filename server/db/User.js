@@ -38,8 +38,7 @@ const User = conn.define("user", {
   userType: {
     type: ENUM("customer", "admin"),
     defaultValue: "customer",
-  },
-});
+  },});
 
 User.prototype.createOrder = async function () {
   const cart = await this.getCart();
@@ -127,7 +126,6 @@ User.addHook("beforeSave", async (user) => {
 
 User.findByToken = async function (token) {
   try {
-    console.log("JWT", jwt.verify(token, process.env.JWT));
     const { id } = jwt.verify(token, process.env.JWT);
     const user = await this.findByPk(id);
     if (user) {
