@@ -30,7 +30,6 @@ export const fetchProducts = () => {
 };
 
 export const fetchProduct = (id) => {
-  console.log("in fetch product");
   return async (dispatch) => {
     try {
       const response = await axios.get(`/api/products/${id}`);

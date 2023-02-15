@@ -6,6 +6,8 @@ const cart = (state = { lineItems: [] }, action) => {
     return action.cart;
   } else if (action.type === "SUBMIT_ORDER") {
     return action.cart;
+  } else if (action.type === "ADD_CART") {
+    return action.cart;
   }
   return state;
 };
@@ -50,6 +52,7 @@ export const addToCart = (body) => {
     } catch (e) {
       console.log(e);
     }
+    dispatch({ type: "ADD_CART", cart: response.data });
   };
 };
 

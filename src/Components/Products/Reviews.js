@@ -17,7 +17,7 @@ const Reviews = (props) => {
   const handleSubmit = (e) => {
     // e.preventDefault();
     console.log("submitted. review:", review.text);
-    axios.post('/api/reviews', {review: review.text, productId: params.id})
+    axios.post("/api/reviews", { review: review.text, productId: params.id });
     setReview({ text: "" });
   };
 
