@@ -13,22 +13,24 @@ const IndividualProduct = (props)=> {
     //how to access props.match in a functional component
     //is it the norm to have some sort of state setting function in each component, so we don't risk returning a blank component?
     const { products } = useSelector(state => state)
-    const params = useParams()
+    const productId = props.id
+
+
+  const selectedProduct = (products.products.filter((prod)=> {
+    if (prod.id === productId) return true
+    return false
+  }))[0]
 
     const handleSubmit= (e) => {
       e.preventDefault();
-      console.log("submitted. quantity:", quantity.quantity)
       let orderQuant = parseInt(quantity.quantity)
       dispatch(addToCart({quantity: orderQuant, product: {
-        id: params.id
+        id: productId
       },}))
       setQuantity({quantity: 0})
     }
 
     const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(fetchProduct(params.id));
-    }, []);
 
     const [quantity, setQuantity] = useState({
       quantity: 0,
@@ -42,22 +44,32 @@ const IndividualProduct = (props)=> {
 
     return (
       <div>
-        <h1> {products.selected.name} </h1>
+        <h1> {selectedProduct.name} </h1>
 
-        <Reviews />
 
         <h2> Add to cart </h2>
 
         <form onSubmit={e => {handleSubmit(e)}}>
-        <label> Quantity: </label>
-        <input value = {quantity.quantity} onChange={onChange}></input>
-        <button names="add-cart" type = "submit"> Add to cart</button>
+        <div className="input-group mb-3">
+          <div className="input-group-prepend">
+            <span className="input-group-text" id="inputGroup-sizing-default">
+              Quantity
+            </span>
+          </div>
+          <input
+            value = {quantity.quantity} onChange={onChange}
+            type="text"
+            className="form-control"
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </div>
+        <button className="btn btn-primary" names="add-cart" type = "submit"> Add to cart </button>
         </form>
 
 
 
         <div>
-        <Link to = '/'> Go back home </Link>
         </div>
         
       </div>

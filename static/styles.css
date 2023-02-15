@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: verdana;
 }
 
@@ -55,4 +55,19 @@ img {
 
 #add-product {
   width: 70%;
+} */
+
+body {
+  background-color: #eee;
+}
+
+@media (max-width: 767.98px) {
+  .border-sm-start-none {
+    border-left: none !important;
+  }
+}
+
+
+#gfg{
+  margin: 40px;
 }
