@@ -16,6 +16,7 @@ const Reviews = (props) => {
 
   const handleSubmit = (e) => {
     // e.preventDefault();
+    console.log("submitted. review:", review.text);
     axios.post("/api/reviews", { review: review.text, productId: params.id });
     setReview({ text: "" });
   };
@@ -31,6 +32,7 @@ const Reviews = (props) => {
 
   const onChange = (ev) => {
     setReview({ text: ev.target.value });
+    console.log(review);
   };
 
   return (
@@ -39,7 +41,7 @@ const Reviews = (props) => {
       <ul>
         {products.selected.reviews
           ? products.selected.reviews.map((review) => {
-              return <li key={review.id}>{review.review}</li>;
+              return <li>{review.review}</li>;
             })
           : "loading"}
       </ul>
