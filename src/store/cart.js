@@ -6,6 +6,8 @@ const cart = (state = { lineItems: [] }, action) => {
     return action.cart;
   } else if (action.type === "SUBMIT_ORDER") {
     return action.cart;
+  } else if (action.type === "ADD_CART") {
+    return action.cart;
   }
   return state;
 };
@@ -40,16 +42,13 @@ export const removeCart = (product, quantityToRemove) => {
 
 export const addToCart = (body) => {
   return async (dispatch) => {
-    try {
-      const token = window.localStorage.getItem("token");
-      const response = await axios.post("/api/orders/cart", body, {
-        headers: {
-          authorization: token,
-        },
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    const token = window.localStorage.getItem("token");
+    const response = await axios.post("/api/orders/cart", body, {
+      headers: {
+        authorization: token,
+      },
+    });
+    dispatch({ type: "ADD_CART", cart: response.data });
   };
 };
 

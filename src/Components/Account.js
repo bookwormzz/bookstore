@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../store";
 import UpdateProfile from "./UpdateProfile";
 
 const Account = () => {
@@ -12,7 +11,6 @@ const Account = () => {
   return (
     <div>
       <div>
-        Welcome {auth.username}!!
         <img src={auth.imageUrl} height="200" width="200" />
         <h2>Details:</h2>
         <p>Member since {createdDate}</p>

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect } from "react";
 import Login from "./Login";
 import Cart from "./Cart";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,7 +11,6 @@ import Account from "./Account";
 
 const App = () => {
   const { auth } = useSelector((state) => state);
-  const [displayLogin, setDisplayLogin] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loginWithToken());
@@ -21,6 +19,8 @@ const App = () => {
   useEffect(() => {
     if (auth.id) {
       dispatch(fetchCart());
+    } else {
+      localStorage.getItem("cart");
     }
   }, [auth]);
 

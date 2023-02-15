@@ -31,7 +31,6 @@ const Reviews = (props) => {
 
   const onChange = (ev) => {
     setReview({ text: ev.target.value });
-    console.log(review);
   };
 
   return (
