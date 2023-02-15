@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { attemptRegister } from "../store";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const dispatch = useDispatch();
@@ -17,9 +17,13 @@ export const Register = () => {
   };
 
   const register = (ev) => {
-    ev.preventDefault();
-    dispatch(attemptRegister(credentials));
-    navigate("/");
+    try {
+      ev.preventDefault();
+      dispatch(attemptRegister(credentials));
+      navigate("/");
+    } catch {
+      console.log("Error registering");
+    }
   };
 
   return (

@@ -35,11 +35,14 @@ const App = () => {
         <div>
           <div id="header">
             <h1>Bookwormzz</h1>
-            {auth.id ? (
-              <button onClick={() => dispatch(logout())}>Logout</button>
-            ) : (
-              <button onClick={routeChange}>Login</button>
-            )}
+            <div>
+              <span>Welcome {!!auth.id ? auth.username + "!  " : "!  "}</span>
+              {auth.id ? (
+                <button onClick={() => dispatch(logout())}>Logout</button>
+              ) : (
+                <button onClick={routeChange}>Login</button>
+              )}
+            </div>
           </div>
 
           <nav>
