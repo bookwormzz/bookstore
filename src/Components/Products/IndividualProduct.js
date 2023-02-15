@@ -12,7 +12,16 @@ const IndividualProduct = (props) => {
   //how to access props.match in a functional component
   //is it the norm to have some sort of state setting function in each component, so we don't risk returning a blank component?
   const { products, auth } = useSelector((state) => state);
+  const params = useParams();
+  const dispatch = useDispatch();
   const [items, setItems] = useState([]);
+  const [quantity, setQuantity] = useState({
+    quantity: 0,
+  });
+
+  useEffect(() => {
+    dispatch(fetchProduct(params.id));
+  }, []);
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("cart"));
@@ -25,30 +34,47 @@ const IndividualProduct = (props) => {
     localStorage.setItem("cart", JSON.stringify(items));
   }, [items]);
 
-  const params = useParams();
-
   const handleSubmit = (e) => {
     e.preventDefault();
     let orderQuant = parseInt(quantity.quantity);
-    dispatch(
-      addToCart(auth, {
-        quantity: orderQuant,
-        product: {
-          id: params.id,
-        },
-      })
-    );
+    const newItem = {
+      quantity: orderQuant,
+      product: {
+        id: params.id,
+      },
+    };
+    if (auth.id) {
+      dispatch(addToCart(newItem));
+    }
+    // else {
+    //   console.log("non-auth");
+    //   // Check if there are items in the cart
+    //   if (items.items) {
+    //     // check if the item exists and if so increase the qty;
+    //     let lineItem = items.items.find((lineItem) => {
+    //       return lineItem.product.id === newItem.product.id;
+    //     });
+    //     if (lineItem) {
+    //       lineItem.quantity += newItem.quantity;
+    //       const otherItems = items.items.filter((item) => {
+    //         item.product.id !== newItem.product.id;
+    //       });
+    //       setItems({ items: [...otherItems, lineItem] });
+    //     }
+    //     //if it doesnt exist add the item
+    //     else {
+    //       setItems((items) => [...items, newItem]);
+    //     }
+    //     console.log("if items", items);
+    //   }
+    //   // If there are no items in the cart, add the item
+    //   else {
+    //     setItems({ items: [newItem] });
+    //     console.log("else", items);
+    //   }
+    // }
     setQuantity({ quantity: 0 });
   };
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchProduct(params.id));
-  }, []);
-
-  const [quantity, setQuantity] = useState({
-    quantity: 0,
-  });
 
   const onChange = (ev) => {
     setQuantity({ quantity: ev.target.value });
