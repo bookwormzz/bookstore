@@ -41,9 +41,11 @@ const Login = () => {
           value={credentials.password}
           onChange={onChange}
         />
-        <button>Login</button>
+        <button className="btn btn-primary">Login</button>
       </form>
-      <button onClick={onShow}>
+      <button
+      className="btn btn-secondary"
+      onClick={onShow}>
         You don't have an account? Register here!
       </button>
       {hasRender && <Register />}

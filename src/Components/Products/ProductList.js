@@ -5,6 +5,20 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { addProduct } from "../../store";
+import Button from "react-bootstrap/Button";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBIcon,
+  MDBRipple,
+  MDBBtn,
+} from "mdb-react-ui-kit";
+import IndividualProduct from "./IndividualProduct";
+import Reviews from "./Reviews";
 import ProductCard from "./ProductCard";
 
 const ProductList = () => {
@@ -15,6 +29,7 @@ const ProductList = () => {
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
+
 
   const results = !searchTerm
     ? products.products
@@ -47,27 +62,83 @@ const ProductList = () => {
 
   return (
     <div>
-      <h2>Book List</h2>
-      {auth.userType === "admin" && (
-        <button onClick={showProductEdit}>Add Product</button>
-      )}
-      <div>
+      
+
+      <div class="md-form">
         <input
           type="text"
           placeholder="Search"
           value={searchTerm}
           onChange={handleChange}
+          id="inputDisabledEx"
+          class="form-control"
         />
       </div>
-      <div id="product-list-container">
-        <div id="product-grid-row">
-          {results
-            ? results.map((product) => {
-                return <ProductCard key={product.id} product={product} />;
-              })
-            : "loading"}{" "}
-        </div>
+
+
+      <div>
+        {results
+          ? results.map((product) => {
+              return (
+                <MDBContainer fluid>
+                  <MDBRow className="justify-content-center mb-0">
+                    <MDBCol md="12" xl="10">
+                      <MDBCard className="shadow-0 border rounded-3 mt-5 mb-3">
+                        <MDBCardBody>
+                          <MDBRow>
+                            <MDBCol md="12" lg="3" className="mb-4 mb-lg-0">
+                              <MDBRipple
+                                rippleColor="light"
+                                rippleTag="div"
+                                className="bg-image rounded hover-zoom hover-overlay"
+                              >
+                                <MDBCardImage
+                                  src={product.imageUrl}
+                                  fluid
+                                  className="w-100"
+                                />
+                                <a href="#!">
+                                  <div
+                                    className="mask"
+                                    style={{
+                                      backgroundColor:
+                                        "rgba(251, 251, 251, 0.15)",
+                                    }}
+                                  ></div>
+                                </a>
+                              </MDBRipple>
+                            </MDBCol>
+                            <MDBCol md="6">
+                              <Reviews id={product.id} />
+
+                              <p className="text-truncate mb-4 mb-md-0"></p>
+                            </MDBCol>
+                            <MDBCol
+                              md="6"
+                              lg="3"
+                              className="border-sm-start-none border-start"
+                            >
+                              <div className="d-flex flex-row align-items-center mb-1">
+                                <div>
+                                  <IndividualProduct id={product.id} />
+                                </div>
+                              </div>
+                            </MDBCol>
+                          </MDBRow>
+                        </MDBCardBody>
+                      </MDBCard>
+                    </MDBCol>
+                  </MDBRow>
+                </MDBContainer>
+              );
+            })
+          : "loading"}
       </div>
+
+      {auth.userType === "admin" && (
+        <Button onClick={showProductEdit}>Add Product</Button>
+      )}
+
       <div id="add-product">
         {show && (
           <div>
@@ -77,7 +148,7 @@ const ProductList = () => {
               <input name="name" {...register("name")} />
               <label htmlFor="author">Author</label>
               <input name="author" {...register("author")} />
-              <button type="submit">Submit</button>
+              <Button type="submit">Submit</Button>
             </form>
           </div>
         )}

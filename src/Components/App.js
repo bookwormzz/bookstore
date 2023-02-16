@@ -7,6 +7,7 @@ import { Link, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import IndividualProduct from "./Products/IndividualProduct";
 import ProductList from "./Products/ProductList";
 import OrderHistory from "./OrderHistory";
+import NavBar from "./Nav";
 import Account from "./Account";
 
 const App = () => {
@@ -31,30 +32,10 @@ const App = () => {
 
   return (
     <div>
-      {
         <div>
-          <div id="header">
-            <h1>Bookwormzz</h1>
-            <div>
-              <span>Welcome {!!auth.id ? auth.username + "!  " : "!  "}</span>
-              {auth.id ? (
-                <button onClick={() => dispatch(logout())}>Logout</button>
-              ) : (
-                <button onClick={routeChange}>Login</button>
-              )}
-            </div>
-          </div>
 
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/cart">Cart</Link>
-            {!!auth.id && (
-              <nav>
-                <Link to="/orders">Order History</Link>
-              </nav>
-            )}
-            <Link to="/account">Account</Link>
-          </nav>
+        <NavBar />
+          
           <Routes>
             <Route
               path="/orders"
@@ -69,7 +50,7 @@ const App = () => {
                 !!auth.id ? (
                   <Account />
                 ) : (
-                  <Navigate replace to={"/account-login"} />
+                  <ProductList />
                 )
               }
             />
@@ -79,7 +60,7 @@ const App = () => {
             <Route exact path="/account-login" element={<Login />} />
           </Routes>
         </div>
-      }
+      
     </div>
   );
 };

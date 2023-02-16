@@ -3,59 +3,78 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { fetchProducts } from "../../store";
 import { useState } from "react";
-import { fetchProduct } from "../../store/product";
 import axios from "axios";
+import ListGroup from 'react-bootstrap/ListGroup';
+
 
 const Reviews = (props) => {
   // Need to filter out the product based on
   //how to access props.match in a functional component
   //is it the norm to have some sort of state setting function in each component, so we don't risk returning a blank component?
   const { products } = useSelector((state) => state);
-  const params = useParams();
+  const productId = props.id;
 
-  const handleSubmit = (e) => {
-    // e.preventDefault();
-    console.log("submitted. review:", review.text);
-    axios.post("/api/reviews", { review: review.text, productId: params.id });
-    setReview({ text: "" });
-  };
+  const selectedProduct = products.products.filter((prod) => {
+    if (prod.id === productId) return true;
+    return false;
+  })[0];
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchProduct(params.id));
-  }, []);
 
   const [review, setReview] = useState({
     text: "",
   });
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post("/api/reviews", { review: review.text, productId: productId });
+    dispatch(fetchProducts())
+    setReview({ text: "" });
+  };
+
+  const dispatch = useDispatch();
+
 
   const onChange = (ev) => {
     setReview({ text: ev.target.value });
-    console.log(review);
+    console.log("text", review.text);
+    console.log("selected product", selectedProduct);
   };
 
   return (
     <div>
-      <h1> reviews </h1>
-      <ul>
-        {products.selected.reviews
-          ? products.selected.reviews.map((review) => {
-              return <li>{review.review}</li>;
+      <h1> Reviews </h1>
+      <ListGroup variant="flush">
+        {selectedProduct.reviews
+          ? selectedProduct.reviews.map((review) => {
+              return <ListGroup.Item>{review.review}</ListGroup.Item>;
             })
-          : "loading"}
-      </ul>
+          : "no reviews found"}
+    </ListGroup>
 
       <form
         onSubmit={(e) => {
           handleSubmit(e);
         }}
       >
-        <label> Submit your own review: </label>
-        <input value={review.text} onChange={onChange}></input>
-        <button names="add-cart" type="submit">
-          {" "}
-          submit review{" "}
+        <div className="input-group mb-3">
+          <div className="input-group-prepend">
+            <span className="input-group-text" id="inputGroup-sizing-default">
+              Submit your own review
+            </span>
+          </div>
+          <input
+            value={review.text}
+            onChange={onChange}
+            type="text"
+            className="form-control"
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </div>
+        <button className="btn btn-primary" names="add-cart" type="submit">
+          submit review
         </button>
       </form>
     </div>
