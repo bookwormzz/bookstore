@@ -1,12 +1,11 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchProduct } from '../../store/product';
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import { useState } from 'react';
-import { addToCart } from '../../store';
-import Reviews from './Reviews';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProduct } from "../../store/product";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { addToCart } from "../../store";
+import Reviews from "./Reviews";
 
 const IndividualProduct = (props)=> {
     // Need to filter out the product based on 
@@ -14,6 +13,11 @@ const IndividualProduct = (props)=> {
     //is it the norm to have some sort of state setting function in each component, so we don't risk returning a blank component?
     const { products } = useSelector(state => state)
     const productId = props.id
+    const [items, setItems] = useState([]);
+    const [quantity, setQuantity] = useState({
+      quantity: 0,
+    });
+  
 
 
   const selectedProduct = (products.products.filter((prod)=> {
@@ -30,24 +34,59 @@ const IndividualProduct = (props)=> {
       setQuantity({quantity: 0})
     }
 
+    useEffect(() => {
+      const items = JSON.parse(localStorage.getItem("cart"));
+      if (items) {
+        setItems(items);
+      }
+    }, []);
+
     const dispatch = useDispatch();
 
-    const [quantity, setQuantity] = useState({
-      quantity: 0,
-    });
+  // useEffect(() => {
+  //   localStorage.setItem("cart", JSON.stringify(items));
+  // }, [items]);
 
-    const onChange = (ev) => {
-      setQuantity({ quantity: ev.target.value });
-      console.log(quantity)
-    };
+    // else {
+    //   console.log("non-auth");
+    //   // Check if there are items in the cart
+    //   if (items.items) {
+    //     // check if the item exists and if so increase the qty;
+    //     let lineItem = items.items.find((lineItem) => {
+    //       return lineItem.product.id === newItem.product.id;
+    //     });
+    //     if (lineItem) {
+    //       lineItem.quantity += newItem.quantity;
+    //       const otherItems = items.items.filter((item) => {
+    //         item.product.id !== newItem.product.id;
+    //       });
+    //       setItems({ items: [...otherItems, lineItem] });
+    //     }
+    //     //if it doesnt exist add the item
+    //     else {
+    //       setItems((items) => [...items, newItem]);
+    //     }
+    //     console.log("if items", items);
+    //   }
+    //   // If there are no items in the cart, add the item
+    //   else {
+    //     setItems({ items: [newItem] });
+    //     console.log("else", items);
+    //   }
+    // }
+  //   setQuantity({ quantity: 0 });
+  // };
 
+  const onChange = (ev) => {
+    setQuantity({ quantity: ev.target.value });
+  };
 
     return (
       <div>
         <h1> {selectedProduct.name} </h1>
 
 
-        <h2> Add to cart </h2>
+      <h2> Add to cart </h2>
 
         <form onSubmit={e => {handleSubmit(e)}}>
         <div className="input-group mb-3">
@@ -73,7 +112,7 @@ const IndividualProduct = (props)=> {
         </div>
         
       </div>
-    );
-  };
+  );
+};
 
-export default IndividualProduct
+export default IndividualProduct;

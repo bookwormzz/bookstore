@@ -71,3 +71,14 @@ body {
 #gfg{
   margin: 40px;
 }
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#login-button {
+  height: 30px;
+  width: 80px;
+}

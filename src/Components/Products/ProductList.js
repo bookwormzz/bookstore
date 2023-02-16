@@ -19,16 +19,17 @@ import {
 } from "mdb-react-ui-kit";
 import IndividualProduct from "./IndividualProduct";
 import Reviews from "./Reviews";
+import ProductCard from "./ProductCard";
 
 const ProductList = () => {
   const { products, auth } = useSelector((state) => state);
   const [show, setShow] = useState(false);
-  const [userType, setUserType] = useState(auth.userType);
 
   const [searchTerm, setSearchTerm] = React.useState("");
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
+
 
   const results = !searchTerm
     ? products.products
@@ -61,9 +62,7 @@ const ProductList = () => {
 
   return (
     <div>
-      {userType === "admin" && (
-        <Button onClick={showProductEdit}>Add Product</Button>
-      )}
+      
 
       <div class="md-form">
         <input
@@ -135,6 +134,11 @@ const ProductList = () => {
             })
           : "loading"}
       </div>
+
+      {auth.userType === "admin" && (
+        <Button onClick={showProductEdit}>Add Product</Button>
+      )}
+
       <div id="add-product">
         {show && (
           <div>
@@ -144,7 +148,7 @@ const ProductList = () => {
               <input name="name" {...register("name")} />
               <label htmlFor="author">Author</label>
               <input name="author" {...register("author")} />
-              <button type="submit">Submit</button>
+              <Button type="submit">Submit</Button>
             </form>
           </div>
         )}

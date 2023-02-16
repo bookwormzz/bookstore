@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../store";
-import ProductList from "./Products/ProductList";
 import UpdateProfile from "./UpdateProfile";
+import ProductList from "./Products/ProductList";
+import { logout } from "../store";
 
-const Home = () => {
+const Account = () => {
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const createdDate = new Date(auth.createdAt).toLocaleDateString();
@@ -40,12 +40,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-      <div>
-        <ProductList />
-      </div>
     </div>
   );
 };
 
-export default Home;
+export default Account;

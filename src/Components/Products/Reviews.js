@@ -3,20 +3,11 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { fetchProducts } from "../../store";
 import { useState } from "react";
-import { fetchProduct } from "../../store/product";
 import axios from "axios";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBIcon,
-  MDBRipple,
-  MDBBtn,
-} from "mdb-react-ui-kit";
+import ListGroup from 'react-bootstrap/ListGroup';
+
 
 const Reviews = (props) => {
   // Need to filter out the product based on
@@ -30,19 +21,20 @@ const Reviews = (props) => {
     return false;
   })[0];
 
-  const handleSubmit = (e) => {
-    axios.post("/api/reviews", { review: review.text, productId: productId });
-    setReview({ text: "" });
-  };
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchProduct(productId));
-  }, []);
 
   const [review, setReview] = useState({
     text: "",
   });
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post("/api/reviews", { review: review.text, productId: productId });
+    dispatch(fetchProducts())
+    setReview({ text: "" });
+  };
+
+  const dispatch = useDispatch();
+
 
   const onChange = (ev) => {
     setReview({ text: ev.target.value });
@@ -53,13 +45,13 @@ const Reviews = (props) => {
   return (
     <div>
       <h1> Reviews </h1>
-      <ul>
+      <ListGroup variant="flush">
         {selectedProduct.reviews
           ? selectedProduct.reviews.map((review) => {
-              return <li>{review.review}</li>;
+              return <ListGroup.Item>{review.review}</ListGroup.Item>;
             })
           : "no reviews found"}
-      </ul>
+    </ListGroup>
 
       <form
         onSubmit={(e) => {
