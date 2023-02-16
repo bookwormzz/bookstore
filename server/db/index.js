@@ -4,6 +4,7 @@ const Product = require("./Product");
 const Order = require("./Order");
 const LineItem = require("./LineItem");
 const Review = require("./Review");
+const axios = require("axios");
 
 Order.belongsTo(User);
 LineItem.belongsTo(Order);
@@ -14,6 +15,21 @@ Product.hasMany(Review);
 
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
+  const response = await axios.get(
+    "https://www.googleapis.com/books/v1/volumes?q=subject:fiction&maxResults=40"
+  );
+  const books = response.data.items;
+
+  books.forEach((book) => {
+    if (book.volumeInfo.authors) {
+      Product.create({
+        name: book.volumeInfo.title,
+        author: book.volumeInfo.authors[0],
+        imageUrl: book.volumeInfo.imageLinks.smallThumbnail,
+      });
+    }
+  });
+
   const [moe, lucy, larry, mocking, gatsby, invisible, ethyl] =
     await Promise.all([
       User.create({
@@ -44,12 +60,6 @@ const syncAndSeed = async () => {
         userType: "customer",
       }),
 
-      // User.create({ username: "moe", password: "123", userType: "customer" }),
-      // User.create({ username: "lucy", password: "123", userType: "customer" }),
-      // User.create({ username: "larry", password: "123", userType: "customer" }),
-      // Product.create({ name: "foo", review: "Great product" }),
-      // Product.create({ name: "bar", review: "Great product" }),
-      // Product.create({ name: "bazz", review: "Great product" }),
       Product.create({
         name: "To Kill a Mockingbird",
         author: "Harper Lee",
