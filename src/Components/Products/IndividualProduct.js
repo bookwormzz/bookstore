@@ -53,6 +53,13 @@ const IndividualProduct = (props) => {
   return (
     <div>
       <h1> {selectedProduct.name} </h1>
+      <div className = "text-secondary">{selectedProduct.author}</div>
+      <div className = "text-secondary">Published: {selectedProduct.publishedDate? 
+      selectedProduct.publishedDate:
+      "unavailable"
+      }</div>
+
+
 
       <h2> Add to cart </h2>
 
