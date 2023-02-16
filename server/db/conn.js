@@ -6,7 +6,7 @@ if (process.env.QUIET) {
 }
 
 const conn = new Sequelize(
-  process.env.DATABASE_URL || "postgres://localhost:5431/bookstore_db",
+  process.env.DATABASE_URL || "postgres://localhost/bookstore_db",
   config
 );
 module.exports = conn;
