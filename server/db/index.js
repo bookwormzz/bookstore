@@ -25,6 +25,9 @@ const syncAndSeed = async () => {
       Product.create({
         name: book.volumeInfo.title,
         author: book.volumeInfo.authors[0],
+        description: book.volumeInfo.description,
+        publishedDate: book.volumeInfo.publishedDate,
+        pageCount: book.volumeInfo.pageCount,
         imageUrl: book.volumeInfo.imageLinks.smallThumbnail,
       });
     }

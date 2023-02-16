@@ -1,5 +1,5 @@
 const conn = require("./conn");
-const { STRING, UUID, UUIDV4 } = conn.Sequelize;
+const { STRING, UUID, UUIDV4, TEXT, INTEGER } = conn.Sequelize;
 const Review = require("./Review");
 
 const Product = conn.define("product", {
@@ -18,6 +18,15 @@ const Product = conn.define("product", {
   author: {
     type: STRING,
     allowNull: false,
+  },
+  description: {
+    type: TEXT,
+  },
+  publishedDate: {
+    type: STRING,
+  },
+  pageCount: {
+    type: INTEGER,
   },
   imageUrl: {
     type: STRING,
