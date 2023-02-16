@@ -34,7 +34,9 @@ const UpdateProfile = () => {
             name='email'
             {...register("email")}
           />
-          <button type='submit'>submit</button>
+          <button 
+          className="btn btn-primary"
+          type='submit'>submit</button>
         </form>
       </div>
     </div>

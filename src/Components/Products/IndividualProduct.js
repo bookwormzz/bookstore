@@ -7,45 +7,46 @@ import { useParams } from "react-router-dom";
 import { addToCart } from "../../store";
 import Reviews from "./Reviews";
 
-const IndividualProduct = (props) => {
-  // Need to filter out the product based on
-  //how to access props.match in a functional component
-  //is it the norm to have some sort of state setting function in each component, so we don't risk returning a blank component?
-  const { products, auth } = useSelector((state) => state);
-  const params = useParams();
-  const dispatch = useDispatch();
-  const [items, setItems] = useState([]);
-  const [quantity, setQuantity] = useState({
-    quantity: 0,
-  });
+const IndividualProduct = (props)=> {
+    // Need to filter out the product based on 
+    //how to access props.match in a functional component
+    //is it the norm to have some sort of state setting function in each component, so we don't risk returning a blank component?
+    const { products } = useSelector(state => state)
+    const productId = props.id
+    const [items, setItems] = useState([]);
+    const [quantity, setQuantity] = useState({
+      quantity: 0,
+    });
+  
 
-  useEffect(() => {
-    dispatch(fetchProduct(params.id));
-  }, []);
 
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("cart"));
-    if (items) {
-      setItems(items);
+  const selectedProduct = (products.products.filter((prod)=> {
+    if (prod.id === productId) return true
+    return false
+  }))[0]
+
+    const handleSubmit= (e) => {
+      e.preventDefault();
+      let orderQuant = parseInt(quantity.quantity)
+      dispatch(addToCart({quantity: orderQuant, product: {
+        id: productId
+      },}))
+      setQuantity({quantity: 0})
     }
-  }, []);
 
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(items));
-  }, [items]);
+    useEffect(() => {
+      const items = JSON.parse(localStorage.getItem("cart"));
+      if (items) {
+        setItems(items);
+      }
+    }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let orderQuant = parseInt(quantity.quantity);
-    const newItem = {
-      quantity: orderQuant,
-      product: {
-        id: params.id,
-      },
-    };
-    if (auth.id) {
-      dispatch(addToCart(newItem));
-    }
+    const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   localStorage.setItem("cart", JSON.stringify(items));
+  // }, [items]);
+
     // else {
     //   console.log("non-auth");
     //   // Check if there are items in the cart
@@ -73,38 +74,44 @@ const IndividualProduct = (props) => {
     //     console.log("else", items);
     //   }
     // }
-    setQuantity({ quantity: 0 });
-  };
+  //   setQuantity({ quantity: 0 });
+  // };
 
   const onChange = (ev) => {
     setQuantity({ quantity: ev.target.value });
   };
 
-  return (
-    <div>
-      <h1> {products.selected.name} </h1>
-      <img src={products.selected.imageUrl} />
-      <Reviews />
+    return (
+      <div>
+        <h1> {selectedProduct.name} </h1>
+
 
       <h2> Add to cart </h2>
 
-      <form
-        onSubmit={(e) => {
-          handleSubmit(e);
-        }}
-      >
-        <label> Quantity: </label>
-        <input value={quantity.quantity} onChange={onChange}></input>
-        <button names="add-cart" type="submit">
-          {" "}
-          Add to cart
-        </button>
-      </form>
+        <form onSubmit={e => {handleSubmit(e)}}>
+        <div className="input-group mb-3">
+          <div className="input-group-prepend">
+            <span className="input-group-text" id="inputGroup-sizing-default">
+              Quantity
+            </span>
+          </div>
+          <input
+            value = {quantity.quantity} onChange={onChange}
+            type="text"
+            className="form-control"
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </div>
+        <button className="btn btn-primary" names="add-cart" type = "submit"> Add to cart </button>
+        </form>
 
-      <div>
-        <Link to="/"> Go back home </Link>
+
+
+        <div>
+        </div>
+        
       </div>
-    </div>
   );
 };
 
