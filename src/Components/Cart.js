@@ -43,7 +43,8 @@ const Cart = () => {
                 </button>
               </li>
             ))}
-            <button onClick={handleSubmitOrder()}>Submit Order</button>;
+            <br></br>
+            <button onClick={handleSubmitOrder()}>Submit Order</button>
           </div>
         ) : (
           <li>No items in cart</li>
