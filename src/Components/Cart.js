@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCart, removeCart, submitOrder } from "../store";
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from "react-bootstrap/Button";
+
+
 
 const Cart = () => {
   const { auth } = useSelector((state) => state);
@@ -17,33 +21,35 @@ const Cart = () => {
 
   //Dispatch create order when Submit Order button is clicked
   const handleSubmitOrder = () => {
-    return () => dispatch(submitOrder());
+    return () => {
+      dispatch(submitOrder());
+    };
   };
 
   return (
     <div>
       <h1>Cart</h1>
-      <ul>
+      <ListGroup>
         {cart.isCart &&
           cart.lineItems.map((lineItem) => (
-            <li key={lineItem.id}>
+            <ListGroup.Item key={lineItem.id}>
               {lineItem.product.name}
               <br></br>
               Qty: {lineItem.quantity}{" "}
-              <button
+              <Button
                 onClick={handleRemoveClick(lineItem.product, lineItem.quantity)}
               >
                 Remove from Cart
-              </button>
-            </li>
+              </Button>
+            </ListGroup.Item>
           ))}
-      </ul>
+      </ListGroup>
       {cart.lineItems.length > 0 ? (
-        <button onClick={handleSubmitOrder()}>Submit Order</button>
+        <Button onClick={handleSubmitOrder()}>Submit Order</Button>
       ) : (
-        <ul>
-          <li>No items in cart</li>
-        </ul>
+
+          <div>No items in cart</div>
+
       )}
     </div>
   );

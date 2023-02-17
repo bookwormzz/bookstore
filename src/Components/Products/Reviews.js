@@ -44,6 +44,7 @@ const Reviews = (props) => {
 
   return (
     <div>
+      <div> {selectedProduct.description}</div>
       <h1> Reviews </h1>
       <ListGroup variant="flush">
         {selectedProduct.reviews
