@@ -52,7 +52,7 @@ export const addToCart = (body) => {
     } catch (e) {
       console.log(e);
     }
-    dispatch({ type: "ADD_CART", cart: response.data });
+    // dispatch({ type: "ADD_CART", cart: response.data });
   };
 };
 

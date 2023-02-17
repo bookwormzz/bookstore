@@ -90,7 +90,15 @@ const syncAndSeed = async () => {
           "https://media1.popsugar-assets.com/files/thumbor/AjQtItaIFeoRw5ewJnI8m8YVs9I/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2020/02/06/226/n/47009714/tmp_qzqaia_a90f1014e4320940_the_invisible_man_book.jpg",
         review: "Great product",
       }),
-      User.create({ username: "ethyl", password: "123", userType: "admin" }),
+      User.create({
+        username: "ethyl",
+        password: "123",
+        address: "111 Hollywood Ave Hollywood, CA 33004",
+        email: "ethyl@gmail.com",
+        imageUrl:
+          "https://i.guim.co.uk/img/media/2b6434234ff9d347a22667bddbf8f218c896532b/0_38_3600_2160/master/3600.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=1b3b6e1912c8de93e0e82839c5b1b3f5",
+        userType: "admin",
+      }),
     ]);
 
   // create submitted orders
