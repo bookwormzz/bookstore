@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import Order from "./Order";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchOrders } from "../store/orders";
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from "react-bootstrap/Button";
 
 const OrderHistory = () => {
   const { orders } = useSelector((state) => state);
@@ -13,13 +15,13 @@ const OrderHistory = () => {
   return (
     <div>
       <h1>Order History</h1>
-      <div>
+      <ListGroup>
         {orders?.map((order) => (
-          <div key={order.id} id="orderContainer">
+          <ListGroup.Item key={order.id} id="orderContainer">
             <Order order={order} />
-          </div>
+          </ListGroup.Item>
         ))}
-      </div>
+      </ListGroup>
     </div>
   );
 };

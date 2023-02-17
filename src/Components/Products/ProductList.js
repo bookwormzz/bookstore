@@ -13,13 +13,9 @@ import {
   MDBCard,
   MDBCardBody,
   MDBCardImage,
-  MDBIcon,
-  MDBRipple,
-  MDBBtn,
 } from "mdb-react-ui-kit";
 import IndividualProduct from "./IndividualProduct";
 import Reviews from "./Reviews";
-import ProductCard from "./ProductCard";
 
 const ProductList = () => {
   const { products, auth } = useSelector((state) => state);
@@ -87,11 +83,7 @@ const ProductList = () => {
                         <MDBCardBody>
                           <MDBRow>
                             <MDBCol md="12" lg="3" className="mb-4 mb-lg-0">
-                              <MDBRipple
-                                rippleColor="light"
-                                rippleTag="div"
-                                className="bg-image rounded hover-zoom hover-overlay"
-                              >
+                        
                                 <MDBCardImage
                                   src={product.imageUrl}
                                   fluid
@@ -106,7 +98,6 @@ const ProductList = () => {
                                     }}
                                   ></div>
                                 </a>
-                              </MDBRipple>
                             </MDBCol>
                             <MDBCol md="6">
                               <Reviews id={product.id} />

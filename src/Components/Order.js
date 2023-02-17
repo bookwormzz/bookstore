@@ -1,4 +1,7 @@
 import React from "react";
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from "react-bootstrap/Button";
+
 
 const Order = (props) => {
   const { id, lineItems, createdAt } = props.order;
@@ -6,16 +9,16 @@ const Order = (props) => {
   return (
     <div>
       <h4>Order #: {id}</h4>
-      <h4>Order Date: {orderDate}</h4>
+      <div>Order Date: {orderDate}</div>
       <div>
         {" "}
-        <ul>
+        <ListGroup>
           {lineItems.map((lineItem) => (
-            <li key={lineItem.id}>
-              Product: {lineItem.product.name} [Qty: {lineItem.quantity}]
-            </li>
+            <ListGroup.Item key={lineItem.id}>
+              {lineItem.product.name} [Qty: {lineItem.quantity}]
+            </ListGroup.Item>
           ))}{" "}
-        </ul>
+        </ListGroup>
       </div>
     </div>
   );
