@@ -29,8 +29,9 @@ const Cart = () => {
   return (
     <div>
       <h1>Cart</h1>
+
       <ListGroup>
-        {cart.isCart &&
+        {cart.isCart & (cart.lineItems.length > 0)  &&
           cart.lineItems.map((lineItem) => (
             <ListGroup.Item key={lineItem.id}>
               {lineItem.product.name}
@@ -51,6 +52,7 @@ const Cart = () => {
           <div>No items in cart</div>
 
       )}
+
     </div>
   );
 };
