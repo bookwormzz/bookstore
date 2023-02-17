@@ -66,6 +66,8 @@ const syncAndSeed = async () => {
       Product.create({
         name: "To Kill a Mockingbird",
         author: "Harper Lee",
+        publishedDate: "1960-07-11",
+        pageCount: 300,
         imageUrl:
           "https://cdn.britannica.com/21/182021-050-666DB6B1/book-cover-To-Kill-a-Mockingbird-many-1961.jpg",
         review: "Great product",
@@ -73,6 +75,8 @@ const syncAndSeed = async () => {
       Product.create({
         name: "The Great Gatsby",
         author: "F. Scott Fitzgerald",
+        publishedDate: "1925-04-10",
+        pageCount: 300,
         imageUrl:
           "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781982146702/the-great-gatsby-9781982146702_hr.jpg",
         review: "Great product",
@@ -80,11 +84,21 @@ const syncAndSeed = async () => {
       Product.create({
         name: "Invisible Man",
         author: "Ralph Ellison",
+        publishedDate: "1952-04-14",
+        pageCount: 300,
         imageUrl:
           "https://media1.popsugar-assets.com/files/thumbor/AjQtItaIFeoRw5ewJnI8m8YVs9I/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2020/02/06/226/n/47009714/tmp_qzqaia_a90f1014e4320940_the_invisible_man_book.jpg",
         review: "Great product",
       }),
-      User.create({ username: "ethyl", password: "123", userType: "admin" }),
+      User.create({
+        username: "ethyl",
+        password: "123",
+        address: "111 Hollywood Ave Hollywood, CA 33004",
+        email: "ethyl@gmail.com",
+        imageUrl:
+          "https://i.guim.co.uk/img/media/2b6434234ff9d347a22667bddbf8f218c896532b/0_38_3600_2160/master/3600.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=1b3b6e1912c8de93e0e82839c5b1b3f5",
+        userType: "admin",
+      }),
     ]);
 
   // create submitted orders

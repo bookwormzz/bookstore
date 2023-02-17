@@ -17,34 +17,39 @@ const Cart = () => {
 
   //Dispatch create order when Submit Order button is clicked
   const handleSubmitOrder = () => {
-    return () => dispatch(submitOrder());
+    return () => {
+      dispatch(submitOrder());
+    };
   };
 
   return (
     <div>
       <h1>Cart</h1>
       <ul>
-        {cart.isCart &&
-          cart.lineItems.map((lineItem) => (
-            <li key={lineItem.id}>
-              {lineItem.product.name}
-              <br></br>
-              Qty: {lineItem.quantity}{" "}
-              <button
-                onClick={handleRemoveClick(lineItem.product, lineItem.quantity)}
-              >
-                Remove from Cart
-              </button>
-            </li>
-          ))}
-      </ul>
-      {cart.lineItems.length > 0 ? (
-        <button onClick={handleSubmitOrder()}>Submit Order</button>
-      ) : (
-        <ul>
+        {cart.isCart & (cart.lineItems.length > 0) ? (
+          <div>
+            {cart.lineItems.map((lineItem) => (
+              <li key={lineItem.id}>
+                {lineItem.product.name}
+                <br></br>
+                Qty: {lineItem.quantity}{" "}
+                <button
+                  onClick={handleRemoveClick(
+                    lineItem.product,
+                    lineItem.quantity
+                  )}
+                >
+                  Remove from Cart
+                </button>
+              </li>
+            ))}
+            <br></br>
+            <button onClick={handleSubmitOrder()}>Submit Order</button>
+          </div>
+        ) : (
           <li>No items in cart</li>
-        </ul>
-      )}
+        )}
+      </ul>
     </div>
   );
 };
