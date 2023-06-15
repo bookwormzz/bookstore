@@ -1,3 +1,10 @@
+# View the site
+
+Clone the repo and run "npm run start:dev"
+
+If you would like to log in, you can use the premade account "ethyl" with password "123."
+
+
 # Basic Features
 
 - [x] A user should be able to see products
